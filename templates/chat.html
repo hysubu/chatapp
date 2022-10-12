@@ -1,0 +1,149 @@
+<html>
+<style>
+    .gradient-custom {
+/* fallback for old browsers */
+background: #fccb90;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to bottom right, rgba(252, 203, 144, 1), rgba(213, 126, 235, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to bottom right, rgba(252, 203, 144, 1), rgba(213, 126, 235, 1))
+}
+
+.mask-custom {
+background: rgba(24, 24, 16, .2);
+border-radius: 2em;
+backdrop-filter: blur(15px);
+border: 2px solid rgba(255, 255, 255, 0.05);
+background-clip: padding-box;
+box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+</style>
+<body>
+<section class="gradient-custom">
+  <div class="container py-5">
+
+    <div class="row">
+
+      <div class="col-md-6 col-lg-5 col-xl-5 mb-4 mb-md-0">
+
+        <h5 class="font-weight-bold mb-3 text-center text-white">Member</h5>
+
+        <div class="card mask-custom">
+          <div class="card-body">
+
+            <ul class="list-unstyled mb-0">
+                {% for i in friends %}
+              <li class="p-2 border-bottom" style="border-bottom: 1px solid rgba(255,255,255,.3) !important;">
+                <a href="{% url 'chat' i.username %}" class="d-flex justify-content-between link-light">
+                  <div class="d-flex flex-row">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar"
+                      class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                    <div class="pt-1">
+                      <p class="fw-bold mb-0">{{ i.first_name }} {{ i.last_name }}</p>
+{#                      <p class="small text-white">Hello, Are you there?</p>#}
+                    </div>
+                  </div>
+{#                  <div class="pt-1">#}
+{#                    <p class="small text-white mb-1">Just now</p>#}
+{#                    <span class="badge bg-danger float-end">1</span>#}
+{#                  </div>#}
+                </a>
+              </li>
+                {% endfor %}
+            </ul>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-6 col-lg-7 col-xl-7">
+
+        <ul class="list-unstyled text-white">
+            <li class="mb-3">
+            <div class="form-outline form-white">
+                <form method="post" action="/chat/{{ select_user }}">
+                    {% csrf_token %}
+              <textarea class="form-control" name="msg" id="textAreaExample3" rows="4"></textarea>
+              <label class="form-label" for="textAreaExample3">Message</label>
+                <button type="submit" class="btn btn-light btn-lg btn-rounded float-end">Send</button>
+                </form>
+            </div>
+
+          </li>
+
+            {% if message %}
+                {% for i in message %}
+                    {% if i.sender == fullname %}
+                    <li class="d-flex justify-content-between mb-4">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
+                          class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
+                        <div class="card mask-custom" style="width: 600%">
+                          <div class="card-header d-flex justify-content-between p-3"
+                            style="border-bottom: 1px solid rgba(255,255,255,.3);">
+                            <p class="fw-bold mb-0">{{ i.sender }}</p>
+                            <p class="text-light small mb-0"><i class="far fa-clock"></i></p>
+                          </div>
+                          <div class="card-body">
+                            <p class="mb-0">
+                              {{ i.msg }}
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      {% else %}
+                      <li class="d-flex justify-content-between mb-4">
+                        <div class="card mask-custom w-100">
+                          <div class="card-header d-flex justify-content-between p-3"
+                            style="border-bottom: 1px solid rgba(255,255,255,.3);">
+                            <p class="fw-bold mb-0">{{ i.sender }}</p>
+                            <p class="text-light small mb-0"><i class="far fa-clock"></i></p>
+                          </div>
+                          <div class="card-body">
+                            <p class="mb-0">
+                              {{ i.msg }}
+                            </p>
+                          </div>
+                        </div>
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+                          class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+                      </li>
+                      {% endif %}
+                {% endfor %}
+            {% else %}
+                <li class="d-flex justify-content-between mb-4">
+                    <center>
+                        <p>Send Your first message.</p>
+                    </center>
+                </li>
+            {% endif %}
+
+{#          <li class="d-flex justify-content-between mb-4">#}
+{#            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"#}
+{#              class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">#}
+{#            <div class="card mask-custom">#}
+{#              <div class="card-header d-flex justify-content-between p-3"#}
+{#                style="border-bottom: 1px solid rgba(255,255,255,.3);">#}
+{#                <p class="fw-bold mb-0">Brad Pitt</p>#}
+{#                <p class="text-light small mb-0"><i class="far fa-clock"></i> 10 mins ago</p>#}
+{#              </div>#}
+{#              <div class="card-body">#}
+{#                <p class="mb-0">#}
+{#                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut#}
+{#                  labore et dolore magna aliqua.#}
+{#                </p>#}
+{#              </div>#}
+{#            </div>#}
+{#          </li>#}
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+</body>
+</html>

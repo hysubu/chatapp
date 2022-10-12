@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+    <div class="row">
+      <h2 style="text-align:center">Login with Social Media or Manually</h2>
+
+      <div class="col1">
+        <div class="hide-md-lg">
+          <p>Or sign in manually:</p>
+        </div>
+
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" value="Login">
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<div class="bottom-container">
+  <div class="row">
+    <div class="col">
+      <a href="{% url 'signup' %}" style="color:white" class="btn">Sign up</a>
+    </div>
+    <div class="col">
+      <a href="#" style="color:white" class="btn">Forgot password?</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
