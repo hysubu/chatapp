@@ -1,4 +1,8 @@
 <html>
+{% load static %}
+<head>
+    {% include 'bootstrap.html' %}
+</head>
 <style>
     .gradient-custom {
 /* fallback for old browsers */
@@ -22,53 +26,27 @@ box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
 </style>
 <body>
 <section class="gradient-custom">
-  <div class="container py-5">
-
+  <div class="container">
     <div class="row">
+        <div class="col-md-3">
+        <a href="{% url 'home' %}">
+            <img style="height: 50px;" src="{% static 'back.jpg' %}">
+        </a>
+    </div>
+    </div>
+    <div class="row" style="height: 40em;max-height: 40em;overflow-y: auto">
 
-      <div class="col-md-6 col-lg-5 col-xl-5 mb-4 mb-md-0">
-
-        <h5 class="font-weight-bold mb-3 text-center text-white">Member</h5>
-
-        <div class="card mask-custom">
-          <div class="card-body">
-
-            <ul class="list-unstyled mb-0">
-                {% for i in friends %}
-              <li class="p-2 border-bottom" style="border-bottom: 1px solid rgba(255,255,255,.3) !important;">
-                <a href="{% url 'chat' i.username %}" class="d-flex justify-content-between link-light">
-                  <div class="d-flex flex-row">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar"
-                      class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
-                    <div class="pt-1">
-                      <p class="fw-bold mb-0">{{ i.first_name }} {{ i.last_name }}</p>
-{#                      <p class="small text-white">Hello, Are you there?</p>#}
-                    </div>
-                  </div>
-{#                  <div class="pt-1">#}
-{#                    <p class="small text-white mb-1">Just now</p>#}
-{#                    <span class="badge bg-danger float-end">1</span>#}
-{#                  </div>#}
-                </a>
-              </li>
-                {% endfor %}
-            </ul>
-
-          </div>
-        </div>
-
-      </div>
-
-      <div class="col-md-6 col-lg-7 col-xl-7">
+      <div class="col-md-12">
 
         <ul class="list-unstyled text-white">
             <li class="mb-3">
             <div class="form-outline form-white">
                 <form method="post" action="/chat/{{ select_user }}">
                     {% csrf_token %}
-              <textarea class="form-control" name="msg" id="textAreaExample3" rows="4"></textarea>
-              <label class="form-label" for="textAreaExample3">Message</label>
-                <button type="submit" class="btn btn-light btn-lg btn-rounded float-end">Send</button>
+              <textarea style="height: 4em" class="form-control" name="msg" id="textAreaExample3" rows="4">
+
+              </textarea>
+                <button type="submit" class="btn btn-primary float-end">Send</button>
                 </form>
             </div>
 

@@ -113,11 +113,12 @@ def chat(request, username):
     except Exception as e:
         print(">>>",e)
         return redirect('login')
-    print(message)
+    # print(message)
+    message.reverse()
     data = {
         "fullname": udata.first_name + " " + udata.last_name,
         "friends": friends,
         "message": message,
         "select_user": select_user
     }
-    return render(request, "home.html", data)
+    return render(request, "chat.html", data)
